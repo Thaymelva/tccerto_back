@@ -26,16 +26,21 @@ module.exports = {
     })
     },
 
-    inserir:(email, celular) =>{
+    inserir:(nome, email, senha, tipoUsuario) =>{
         return new Promise((aceito, rejeitado)=>{
-        db.query('INSERT INTO usuarios (email, celular) VALUES (?,?)',
-            [email, celular],
+        db.query('INSERT INTO usuarios (nome, email, senha, tipoUsuario) VALUES (?,?,?,?)',
+            [nome, 
+            email,
+            senha,
+            tipoUsuario],
             (error, results)=>{
             if (error){rejeitado(error); return; }
-                aceito(results.inserirId);
+                aceito(results.insertId);
 
-        })
+        }
+        
+        );
 
-    })
+    });
     }
 };
