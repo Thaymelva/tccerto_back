@@ -32,20 +32,22 @@ module.exports = {
     inserir: async(req, res) => {
         let json ={error:'', result:{}};
 
+        
         let nome  = req.body.nome;
         let email  = req.body.email;
+        let celular = req.body.celular;
         let senha  = req.body.senha;
-        let tipoUsuario  = req.body.tipoUsuario;
+        
+        console.log("=>", nome, email, celular, senha)
 
-
-        if(nome && email && senha && tipoUsuario){
-            let usuario = await UsuariosService.inserir(nome, email, senha, tipoUsuario);
+        if(nome && email && celular && senha){
+            let usuario = await UsuariosService.inserir(nome, email, celular, senha);
             json.result = {
                 id: usuario,
                 nome,
                 email,
-                senha,
-                tipoUsuario,
+                celular,
+                senha
             };
         }else{
             json.error = 'Campos não enviados'

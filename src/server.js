@@ -1,4 +1,4 @@
-require('dotenv').config({path:'variaveis.env'});
+require('dotenv').config({ path: 'variaveis.env' });
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const routes = require('./routes.js');
 
 const server = express();
+server.use(express.json())
 server.use(cors());
 server.use(bodyParser.urlencoded({extended: false}));
 

@@ -3,7 +3,7 @@ const db = require('../db.js');
 module.exports = {
     buscarTodos: () => {
         return new Promise((resolve, reject) => {
-            db.query('SELECT * FROM usuarios', (error, results) => {
+            db.query('SELECT * FROM tbl_usuarios', (error, results) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -14,7 +14,7 @@ module.exports = {
     },
     buscarUm:(id) =>{
         return new Promise((aceito, rejeitado)=>{
-        db.query('SELECT * FROM usuarios WHERE id = ?',[id],(error, results)=>{
+        db.query('SELECT * FROM tbl_usuarios WHERE id = ?',[id],(error, results)=>{
             if (error){rejeitado(error); return; }
             if(results.length > 0){
                 aceito(results[0]);
@@ -26,21 +26,18 @@ module.exports = {
     })
     },
 
-    inserir:(nome, email, senha, tipoUsuario) =>{
-        return new Promise((aceito, rejeitado)=>{
-        db.query('INSERT INTO usuarios (nome, email, senha, tipoUsuario) VALUES (?,?,?,?)',
-            [nome, 
-            email,
-            senha,
-            tipoUsuario],
-            (error, results)=>{
-            if (error){rejeitado(error); return; }
-                aceito(results.insertId);
-
-        }
-        
-        );
-
-    });
+    inserir: (nome, email, celular, senha) => {
+        return new Promise((aceito, rejeitado) => {
+            db.query('INSERT INTO tbl_usuarios (nome, email, celular, senha) VALUES (?,?,?,?)',
+                [nome, email, celular, senha],
+                (error, results) => {
+                    if (error) {
+                        rejeitado(error); // Se houver um erro, rejeite a Promise
+                        return;
+                    }
+                    aceito(results.insertId); // Caso contrário, aceite a Promise com o ID inserido
+                }
+            );
+        });
     }
-};
+}
